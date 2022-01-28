@@ -4,8 +4,18 @@ const cors = require('cors');
 
 require('dotenv').config();
 
+const db = require('./models');
+
 const routes = require('./routes');
 
+// conectar la BD
+db.sequelize.authenticate()
+.then(() => {
+  console.log("BD Conectada");
+})
+.catch((error) => {
+  console.log(error);
+});
 
 // crear el servidor
 const app = express();
