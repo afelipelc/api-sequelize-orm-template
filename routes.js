@@ -10,6 +10,7 @@ module.exports = () => {
 
   // clientes
   router.get('/customers', customersController.list);
-
+  router.post('/customers', customersController.add);
+  router.get('/search', customersController.search)
   return router;
 };
