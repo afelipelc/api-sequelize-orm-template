@@ -22,11 +22,31 @@ exports.add = async(req, res, next) => {
 
 exports.list = async (req, res, next) => {
   try {
-    
-    const customers = await Customer.findAll({});
+    const customers = await Customer.findAll({
+      include: ['category'],
+    });
     res.json(customers);
 
   } catch(error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Error al leer clientes',
+    });
+  }
+};
+
+exports.filtrar = async (req, res, next) => {
+  try {
+    const customers = await Customer.findAll({
+      where: {
+        categoryId: req.body.category,
+      },
+      include: ['category'],
+    });
+    res.json({resultados: customers});
+
+  } catch(error) {
+    console.log(error);
     res.status(500).json({
       message: 'Error al leer clientes',
     });
@@ -55,7 +75,8 @@ exports.search = async (req, res, next) => {
             },
           },
         ]
-      }
+      },
+      include: ['category'],
     });
 
     res.json({resultados: customers});
