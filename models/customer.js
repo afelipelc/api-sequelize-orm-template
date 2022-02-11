@@ -19,9 +19,38 @@ module.exports = (sequelize, DataTypes) => {
   }
   
   Customer.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    phone: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      //allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'El nombre no puede quedar vacío.',
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'El email no puede quedar vacío.',
+        },
+        isEmail: {
+          args: true,
+          msg: 'Se debe proporcionar un email válido.',
+        },
+      }
+    },
+    phone: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'El teléfono no puede quedar vacío.',
+        },
+      },
+    },
     categoryId: DataTypes.INTEGER,
   }, {
     sequelize,

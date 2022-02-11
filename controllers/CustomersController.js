@@ -14,8 +14,18 @@ exports.add = async(req, res, next) => {
     });
 
   }catch(error) {
+
+    let errores = [];
+    if (error.errors) {
+      errores = error.errors.map((errorItem) => ({
+        error: errorItem.message,
+        field: errorItem.path,
+      }));
+    }
+
     res.status(500).json({
       message: 'Error al registrar cliente.',
+      errors: errores,
     });
   }
 };
