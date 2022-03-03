@@ -31,6 +31,7 @@ app.use(
 );
 
 app.use('/', routes());
+app.use('/uploads', express.static('uploads'));
 
 // habilitar puerto de escucha
 app.listen(process.env.APP_PORT, () => {
